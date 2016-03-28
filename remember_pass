@@ -1,0 +1,38 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use v5.20;
+
+my $iter_num = shift || 10;
+
+say "Will do $iter_num iterations";
+
+print "Enter the password, you want to remember: ";
+my $pwd = get_pw();
+
+my $left = $iter_num;
+
+while ($left > 0) {
+    print "$left iterations left. Enter password once again: ";
+    my $try_pw = get_pw();
+
+    if ($try_pw ne $pwd) {
+        say "Password does not match, let's start  from the beginning";
+        $left = $iter_num;
+    } else {
+        $left--;
+    }
+}
+
+say "All good now!";
+
+sub disable { system('/bin/stty', '-echo'); }
+sub enable { system('/bin/stty', 'echo'); }
+sub get_pw {
+    disable();
+    my $pw = <>;
+    enable();
+    print "\n";
+    return $pw;
+}

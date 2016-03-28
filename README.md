@@ -1,2 +1,1 @@
-# scripts
 Misc handy scripts
